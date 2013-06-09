@@ -171,3 +171,12 @@ module tripod_brace_top() {
     translate([-81.35,64,0])
     import("../Cerberus/stl/Tripod Brace Top v2.stl");
 }
+
+module vert_carriage_for_623_dual_bearing_roller_to_print() {
+  import("../Cerberus/stl/Vert carriage for 623 Dual Bearing Roller.stl");
+}
+
+module vert_carriage_for_623_dual_bearing_roller() {
+  rotate([0,0,180]) translate([-5.5, 32, 0]) rotate([90, 0, 0])
+    import("../Cerberus/stl/Vert carriage for 623 Dual Bearing Roller.stl");
+}
