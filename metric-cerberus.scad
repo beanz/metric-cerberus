@@ -13,6 +13,11 @@ module extrusion4040_no_hole_3_groove(h=40) {
     linear_extrude(height=h) import("extrusion-no-hole-3-groove.dxf");
 }
 
+module fixing_bar(length = 320, height = 25, thickness = 2.5) {
+  rotate([0, 0, -30]) translate([-(thickness/2+20), -(length/2+7.5), height/2])
+    cube([thickness, length, height], center = true);
+}
+
 module slots_for_bars(h = 25.4, hole_diameter = 4.2) {
   // slots for bars
   rotate([0, 0, 30]) translate([21.5, -57.5, h/2])
