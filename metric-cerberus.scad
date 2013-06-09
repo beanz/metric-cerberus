@@ -127,3 +127,9 @@ module tripod_brace_bottom() {
     translate([-75,-82.5,0])
     import("../Cerberus/stl/Tripod Brace Bott with Motor Mount - for snap fit lower idler.stl");
 }
+
+module tripod_brace_top() {
+  rotate([0,0,-43.4])
+    translate([-81.35,64,0])
+    import("../Cerberus/stl/Tripod Brace Top v2.stl");
+}
