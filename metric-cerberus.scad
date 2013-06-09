@@ -143,9 +143,9 @@ module upper_idler_adjuster_body(h = 60) {
 
     // hollow
     difference() {
-      translate([-4.95, 0, 3.25+(50+30)/2]) cube([26.75,21,50+30], center = true);
+      translate([-4.95, 0, 3+(50+30)/2]) cube([26.75,21,50+30], center = true);
       for (i=[-1,1])
-        translate([-4.95, i*(8/2+4.8), 3.25+(50+30)/2]) cube([4.5,8,50+30], center = true);
+        translate([-4.95, i*(8/2+4.8), 3+(50+30)/2]) cube([4.5,8,50+30], center = true);
     }
     // hole
     translate([-12.8,0,0]) cylinder(r=2, h=10, center = true, $fn = 12);
