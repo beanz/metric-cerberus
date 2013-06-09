@@ -122,6 +122,44 @@ module outer_brace_bottom_bracket(h = 38) {
   }
 }
 
+module upper_idler_adjuster_body(h = 60) {
+  
+  corner_radius=4;
+  width=40;
+  half_width=width/2;
+  offset = half_width-corner_radius;
+
+  difference() {
+    // main block
+    hull() {
+      for (a=[[offset, offset, h/2],[offset, -offset, h/2],
+              [-offset, -offset, h/2],[-offset, offset, h/2]]) {
+        translate(a) cylinder(r=4, h=h, center = true);
+      }
+    }
+    // cut for extrusion
+    scale([1.01, 1.01, 1]) // scale for better fit
+      translate([0, 0, h-10]) extrusion4040_no_hole(h=h);
+
+    // hollow
+    difference() {
+      translate([-4.95, 0, 3.25+(50+30)/2]) cube([26.75,21,50+30], center = true);
+      for (i=[-1,1])
+        translate([-4.95, i*(8/2+4.8), 3.25+(50+30)/2]) cube([4.5,8,50+30], center = true);
+    }
+    // hole
+    translate([-12.8,0,0]) cylinder(r=2, h=10, center = true, $fn = 12);
+
+    // slot
+    translate([-19,0,20]) {
+      translate([0, 0, 100/2]) cube([5, 8, 100], center = true);
+      rotate([0,90,0]) cylinder(r = 4, h = 5, center = true, $fn=24);
+    }
+    translate([-8, 0, h]) cube([26.75,21,20], center = true);
+
+  }
+}
+
 module tripod_brace_bottom() {
   rotate([0,0,-25])
     translate([-75,-82.5,0])
