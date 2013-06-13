@@ -169,18 +169,22 @@ module tripod_brace_bottom() {
       rotate([0,0,30])
       cube([100,100,100], center = true);
   }
-  translate([50-241.35,50-170,0])
-    rotate([0,0,30])
-    translate([30,8.65,15])
-    intersection() {
-      difference() {
-        cube([40,40,50], center = true);
-        scale([1.01, 1.01, 1]) translate([0, 0, -15]) extrusion4040_no_hole(h = 30);
+  difference() {
+    translate([50-241.35,50-170,0])
+      rotate([0,0,30])
+      translate([30,8.65,15])
+      intersection() {
+        difference() {
+          cube([40,40,50], center = true);
+          scale([1.01, 1.01, 1]) translate([0, 0, -15]) extrusion4040_no_hole(h = 30);
+        }
+        rotate([0,0,45]) translate([20,-20,0])
+          scale([1.01, 1.01, 1]) cube([40, 40, 30], center = true);
+        translate([27,0,0]) cube([40, 25, 30], center = true);
       }
-      rotate([0,0,45]) translate([20,-20,0])
-        scale([1.01, 1.01, 1]) cube([40, 40, 30], center = true);
-      translate([27,0,0]) cube([40, 25, 30], center = true);
-    }
+    rotate([0,0,30]) translate([-180,0,15])
+      rotate([0,90,0]) cylinder(r=2.2, h = 100, $fn = 24, center = true);
+  }
 }
 
 module tripod_brace_top() {
