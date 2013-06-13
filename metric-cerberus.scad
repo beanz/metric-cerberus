@@ -182,8 +182,8 @@ module tripod_brace_bottom() {
           scale([1.01, 1.01, 1]) cube([40, 40, 30], center = true);
         translate([27,0,0]) cube([40, 25, 30], center = true);
       }
-    rotate([0,0,30]) translate([-180,0,15])
-      rotate([0,90,0]) cylinder(r=2.2, h = 100, $fn = 24, center = true);
+    rotate([0,0,30]) translate([-175,0.35,15])
+      rotate([0,90,0]) cylinder(r=2.175, h = 100, $fn = 24, center = true);
   }
 }
 
