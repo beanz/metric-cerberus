@@ -122,6 +122,28 @@ module outer_brace_bottom_bracket(h = 38) {
   }
 }
 
+module outer_brace_bottom_jig(h = 25.4, hole_diameter = 4.2) {
+  intersection() {
+    difference() {
+      outer_brace_bottom_bracket();
+      translate([500,0,500-.1]) cube([1000,1000,1000], center = true);
+      translate([-30, -13, 7.6+h/2])
+        rotate([0, 90, -30])
+        cylinder(r=hole_diameter/2, h=100, $fn = 12, center = true);
+
+    }
+    translate([-30, -13, 7.6+h/2])
+      rotate([0, 90, -30])
+        translate([0,2,12]) cube([10,6,24], center = true);
+  }
+  translate([-30, -13, 0])
+    rotate([0, 0, -30]) {
+      translate([3,0,(7.6+h/2)/2-2]) cube([6,2,7.6+h/2-4], center = true);
+      translate([21,0,(7.6+h/2)/2-2]) cube([6,2,7.6+h/2-4], center = true);
+      translate([12, 1.5, -1]) cube([24,5,2], center = true);
+    }
+}
+
 module upper_idler_adjuster_body(h = 60) {
   
   corner_radius=4;
