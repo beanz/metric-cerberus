@@ -160,6 +160,11 @@ module upper_idler_adjuster_body(h = 60) {
   }
 }
 
+module upper_idler_adjuster_axle(h = 16, r = 4, base_r = 10, base_h = 1) {
+  cylinder(r=base_r, h=base_h);
+  cylinder(r=r, h=h);
+}
+
 module tripod_brace_bottom() {
   difference() {
     rotate([0,0,-25])
