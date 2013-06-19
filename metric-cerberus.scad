@@ -188,30 +188,9 @@ module upper_idler_adjuster_axle(h = 16, r = 4, base_r = 10, base_h = 1) {
 }
 
 module tripod_brace_bottom() {
-  difference() {
-    rotate([0,0,-25])
-      translate([-75,-82.5,0])
-      import("../Cerberus/stl/Tripod Brace Bott with Motor Mount - for snap fit lower idler.stl");
-    translate([50-241.35,50-170,50])
-      rotate([0,0,30])
-      cube([100,100,100], center = true);
-  }
-  difference() {
-    translate([50-241.35,50-170,0])
-      rotate([0,0,30])
-      translate([30,8.65,15])
-      intersection() {
-        difference() {
-          cube([40,40,50], center = true);
-          scale([1.01, 1.01, 1]) translate([0, 0, -15]) extrusion4040_no_hole(h = 30);
-        }
-        rotate([0,0,45]) translate([20,-20,0])
-          scale([1.01, 1.01, 1]) cube([40, 40, 30], center = true);
-        translate([27,0,0]) cube([40, 25, 30], center = true);
-      }
-    rotate([0,0,30]) translate([-175,0.35,15])
-      rotate([0,90,0]) cylinder(r=2.175, h = 100, $fn = 24, center = true);
-  }
+  rotate([0,0,0])
+    translate([-54.25,-57,0])
+    import("../Cerberus/stl/Tripod Brace Bott with Motor Mount - for snap fit lower idler.stl");
 }
 
 module tripod_brace_top() {
