@@ -32,10 +32,10 @@ module slots_for_bars(h = 25.4, hole_diameter = 4.2) {
     cube([10, 100,h], center = true);
 
   // holes to secure bar
-  translate([30, -13, h/2])
+  translate([30.95, -13.95, h/2])
     rotate([0, 90, 30])
     cylinder(r=hole_diameter/2, h=38, $fn = 12, center = true);
-  translate([-30, -13, h/2])
+  translate([-30.95, -13.95, h/2])
     rotate([0, 90, -30])
      cylinder(r=hole_diameter/2, h=38, $fn = 12, center = true);
 }
@@ -110,7 +110,7 @@ module outer_brace_bottom_bracket(h = 38) {
     translate([0, 47, 29]) cube([100, 40, 60], center=true);
 
     // cut to form inner face
-    translate([0, -46, 29]) cube([100, 40, 60], center=true);
+    translate([0, -47, 29]) cube([100, 40, 60], center=true);
 
     // cut to form top face
     for (i=[-1,1]) {
@@ -127,16 +127,16 @@ module outer_brace_bottom_jig(h = 25.4, hole_diameter = 4.2) {
     difference() {
       outer_brace_bottom_bracket();
       translate([500,0,500-.1]) cube([1000,1000,1000], center = true);
-      translate([-30, -13, 7.6+h/2])
+      translate([-30.95, -13.95, 7.6+h/2])
         rotate([0, 90, -30])
         cylinder(r=hole_diameter/2, h=100, $fn = 12, center = true);
 
     }
-    translate([-30, -13, 7.6+h/2])
+    translate([-30.95, -13.95, 7.6+h/2])
       rotate([0, 90, -30])
         translate([0,2,12]) cube([10,6,24], center = true);
   }
-  translate([-30, -13, 0])
+  translate([-30.95, -13.95, 0])
     rotate([0, 0, -30]) {
       translate([3,0,(7.6+h/2)/2-2]) cube([6,2,7.6+h/2-4], center = true);
       translate([21,0,(7.6+h/2)/2-2]) cube([6,2,7.6+h/2-4], center = true);
