@@ -66,10 +66,10 @@ module outer_brace_upper_bracket(h = 35.6, endstop_hole_width = 8,
       translate([0, 0, -1]) extrusion4040_no_hole_3_groove(h=40);
 
     // cut to form outer face
-    translate([0, 46, 29]) cube([100, 40, 60], center=true);
+    translate([0, 47, 29]) cube([100, 40, 60], center=true);
 
     // cut to form inner face
-    translate([0, -46, 29]) cube([100, 40, 60], center=true);
+    translate([0, -47, 29]) cube([100, 40, 60], center=true);
 
     // cut to form top face
     translate([0, 100/2-40/2, 60/2+h]) cube([100, 100, 60], center=true);
