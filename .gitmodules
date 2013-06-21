@@ -1,0 +1,3 @@
+[submodule "Cerberus"]
+	path = Cerberus
+	url = git://github.com/grabercars/Cerberus.git
