@@ -187,9 +187,13 @@ module upper_idler_adjuster_axle(h = 16, r = 4, base_r = 10, base_h = 1) {
   cylinder(r=r, h=h);
 }
 
+module tripod_brace_bottom_to_print() {
+    import("Cerberus/stl/Tripod Brace Bott with Motor Mount - for snap fit lower idler.stl");
+}
+
 module tripod_brace_bottom() {
-  rotate([0,0,0])
-    translate([-54.25,-57,0])
+  rotate([0,180,0])
+    translate([-54.25,-57,-30])
     import("Cerberus/stl/Tripod Brace Bott with Motor Mount - for snap fit lower idler.stl");
 }
 
@@ -206,4 +210,17 @@ module vert_carriage_for_623_dual_bearing_roller_to_print() {
 module vert_carriage_for_623_dual_bearing_roller() {
   rotate([0,0,180]) translate([-5.5, 32, 0]) rotate([90, 0, 0])
     import("Cerberus/stl/Vert carriage for 623 Dual Bearing Roller.stl");
+}
+
+module tripod_hole_jig(h = 15+(45-2.55), r = 4.5/2, w = 40) {
+  difference() {
+    union() {
+      difference() {
+        cube([w+4, h+r+2.55+2, 6], center = true);
+        translate([0, 1.5, 2.55]) cube([w*1.01, h+r+2+1, 6], center = true);
+      }
+      cube([7.5, h+r+2.55+2, 6], center = true);
+    }
+    translate([0, h/2-2, 0]) cylinder(r = r, h = 20, $fn = 18, center = true);
+  }
 }
