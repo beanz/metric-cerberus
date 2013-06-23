@@ -25,8 +25,8 @@ module cerberus() {
           color("Black", 0.5)
             fixing_bar(length = bar_length, height = bar_height, thickness = bar_thickness);
       }
-      translate([0,0,38.1+37]) rotate([0,180,0]) tripod_brace_bottom();
-      translate([0,0,upper_bracket_height+15.6+20]) tripod_brace_top();
+      translate([0,0,45]) tripod_brace_bottom();
+      translate([0,0,upper_bracket_height+15.6]) tripod_brace_top();
     }
   }
 }
