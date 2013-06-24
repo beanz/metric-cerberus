@@ -1,3 +1,5 @@
+include <config.scad>
+
 module extrusion4040(h=1000) {
   translate([-20,-20,0])
     linear_extrude(height=h) import("extrusion.dxf");
@@ -18,26 +20,22 @@ module fixing_bar(length = 320, height = 25, thickness = 2.5) {
     cube([thickness, length, height], center = true);
 }
 
-module slots_for_bars(h = 25.4, hole_diameter = 4.2) {
-  // slots for bars
-  rotate([0, 0, 30]) translate([21.5, -57.5, h/2])
-    cube([3, 100, h], center = true);
-  rotate([0, 0, -30]) translate([-21.5, -57.5, h/2])
-    cube([3, 100, h], center = true);
+module slots_for_bars(h = 25.8, hole_diameter = 4.2) {
 
-  // cutouts beside bars
-  rotate([0, 0, 30]) translate([26, -65, h/2])
-    cube([10, 100, h], center = true);
-  rotate([0,0,-30]) translate([-26, -65, h/2])
-    cube([10, 100,h], center = true);
+  for (i=[1,-1]) {
+    // slots for bars
+    rotate([0, 0, i*30]) translate([i*21.5, -57.5, h/2])
+      cube([3, 100, h], center = true);
 
-  // holes to secure bar
-  translate([30.95, -13.95, h/2])
-    rotate([0, 90, 30])
-    cylinder(r=hole_diameter/2, h=38, $fn = 12, center = true);
-  translate([-30.95, -13.95, h/2])
-    rotate([0, 90, -30])
-     cylinder(r=hole_diameter/2, h=38, $fn = 12, center = true);
+    // cutouts beside bars
+    rotate([0, 0, i*30]) translate([i*26, -65, h/2])
+      cube([10, 100, h], center = true);
+
+    // holes to secure bar
+    translate([i*30.95, -13.95, h/2])
+      rotate([0, 90, i*30])
+        cylinder(r=hole_diameter/2, h=38, $fn = 12, center = true);
+  }
 }
 
 module tripod_cutout(h=20) { // used by upper bracket
@@ -49,8 +47,10 @@ module tripod_cutout(h=20) { // used by upper bracket
   }
 }
 
-module outer_brace_upper_bracket(h = 35.6, endstop_hole_width = 8,
-                                 endstop_hole_diameter = 2.2) {
+module outer_brace_upper_bracket(h = outer_brace_upper_bracket_height,
+                                 endstop_hole_width = endstop_hole_width,
+                                 endstop_hole_diameter = endstop_hole_diameter)
+{
   difference() {
     union() {
       translate([.5, -.5, h/2])
@@ -62,7 +62,7 @@ module outer_brace_upper_bracket(h = 35.6, endstop_hole_width = 8,
     }
 
     // cut for extrusion
-    scale([1.01, 1.01, 1]) // scale for better fit
+    scale([extrusion_scale, extrusion_scale, 1]) // scale for better fit
       translate([0, 0, -1]) extrusion4040_no_hole_3_groove(h=40);
 
     // cut to form outer face
@@ -103,8 +103,8 @@ module outer_brace_bottom_bracket(h = 38) {
     }
 
     // cut for extrusion
-    scale([1.01, 1.01, 1]) // scale for better fit
-      translate([0, 0, 2.55]) extrusion4040_no_hole(h=60);
+    scale([extrusion_scale, extrusion_scale, 1]) // scale for better fit
+      translate([0, 0, base_thickness]) extrusion4040_no_hole(h=60);
 
     // cut to form outer face
     translate([0, 47, 29]) cube([100, 40, 60], center=true);
@@ -160,7 +160,7 @@ module upper_idler_adjuster_body(h = 60) {
       }
     }
     // cut for extrusion
-    scale([1.01, 1.01, 1]) // scale for better fit
+    scale([extrusion_scale, extrusion_scale, 1]) // scale for better fit
       translate([0, 0, h-10]) extrusion4040_no_hole(h=h);
 
     // hollow
@@ -212,14 +212,16 @@ module vert_carriage_for_623_dual_bearing_roller() {
     import("Cerberus/stl/Vert carriage for 623 Dual Bearing Roller.stl");
 }
 
-module tripod_hole_jig(h = 15+(45-2.55), r = 4.5/2, w = 40) {
+module tripod_hole_jig(h = 15+(45-base_thickness),
+                       r = 4.5/2, w = 40) {
   difference() {
     union() {
       difference() {
-        cube([w+4, h+r+2.55+2, 6], center = true);
-        translate([0, 1.5, 2.55]) cube([w*1.01, h+r+2+1, 6], center = true);
+        cube([w+4, h+r+base_thickness+2, 6], center = true);
+        translate([0, 1.5, base_thickness])
+          cube([w*extrusion_scale, h+r+2+1, 6], center = true);
       }
-      cube([7.5, h+r+2.55+2, 6], center = true);
+      cube([7.5, h+r+base_thickness+2, 6], center = true);
     }
     translate([0, h/2-2, 0]) cylinder(r = r, h = 20, $fn = 18, center = true);
   }
