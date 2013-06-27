@@ -5,14 +5,61 @@ module extrusion4040(h=1000) {
     linear_extrude(height=h) import("extrusion.dxf");
 }
 
-module extrusion4040_no_hole(h=40) {
-  translate([-20,-20,0])
-    linear_extrude(height=h) import("extrusion-no-hole.dxf");
+module mushroom(min_slot_width = 7.5, max_slot_width = 9,
+                slot_depth = 5, inner_width = 12,
+                mushroom_depth = 11.75, mushroom_depth_1 = 7,
+                mushroom_depth_2 = 9.5, mushroom_width_2 = 15.5,
+                max_mushroom_width = 18.5, min_mushroom_width = 10,
+                mushroom_lip_width = 2,
+                mushroom_lip_depth = 1,
+                width = 40, h = 40, margin = .5) {
+  translate([0, -width/2, 0])
+  linear_extrude(h=h, convexity = 8)
+    polygon(points=[
+      [-(max_slot_width/2+margin), 0-margin],
+      [-min_slot_width/2, (max_slot_width-min_slot_width)/2],
+      [-min_slot_width/2, slot_depth-(max_slot_width-min_slot_width)/2],
+      [-max_slot_width/2, slot_depth],
+
+      [-(max_mushroom_width/2-mushroom_lip_width), slot_depth],
+      [-(max_mushroom_width/2-mushroom_lip_width), slot_depth-mushroom_lip_depth],
+      [-max_mushroom_width/2, slot_depth-mushroom_lip_depth],
+
+      [-max_mushroom_width/2, mushroom_depth_1],
+      [-mushroom_width_2/2, mushroom_depth_2],
+      [-min_mushroom_width/2, mushroom_depth],
+
+      [min_mushroom_width/2, mushroom_depth],
+      [mushroom_width_2/2, mushroom_depth_2],
+      [max_mushroom_width/2, mushroom_depth_1],
+
+      [max_mushroom_width/2, slot_depth-mushroom_lip_depth],
+      [(max_mushroom_width/2-mushroom_lip_width), slot_depth-mushroom_lip_depth],
+      [(max_mushroom_width/2-mushroom_lip_width), slot_depth],
+      [max_slot_width/2, slot_depth],
+      [min_slot_width/2, slot_depth-(max_slot_width-min_slot_width)/2],
+      [min_slot_width/2,  (max_slot_width-min_slot_width)/2],
+      [(max_slot_width/2+margin), 0-margin],
+    ]);
 }
 
-module extrusion4040_no_hole_3_groove(h=40) {
-  rotate([0,0,90]) translate([-20,-20,0])
-    linear_extrude(height=h) import("extrusion-no-hole-3-groove.dxf");
+module extrusion4040_no_hole(h=40, corner_radius = 4, width = 40,
+                             mushroom_angles = [0, 90, 180, 270]) {
+  half = width/2;
+  offset = half-corner_radius;
+  difference() {
+    hull() {
+      for (i=[1,-1]) {
+        for (j=[1,-1]) {
+          translate([i*offset*extrusion_scale, j*offset*extrusion_scale, 0])
+            cylinder(r=corner_radius*extrusion_scale, h = h, $fn = 30);
+        }
+      }
+    }
+    for (r=mushroom_angles) {
+      rotate([0,0,r]) translate([0,0,-.5]) mushroom(h=h+1);
+    }
+  }
 }
 
 module fixing_bar(length = 320, height = 25, thickness = 2.5) {
@@ -62,8 +109,8 @@ module outer_brace_upper_bracket(h = outer_brace_upper_bracket_height,
     }
 
     // cut for extrusion
-    scale([extrusion_scale, extrusion_scale, 1]) // scale for better fit
-      translate([0, 0, -1]) extrusion4040_no_hole_3_groove(h=40);
+    translate([0, 0, -1])
+      extrusion4040_no_hole(h=40, mushroom_angles = [90,180,270]);
 
     // cut to form outer face
     translate([0, 47, 29]) cube([100, 40, 60], center=true);
