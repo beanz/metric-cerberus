@@ -115,12 +115,11 @@ module outer_brace_upper_bracket(h = outer_brace_upper_bracket_height,
 {
   difference() {
     union() {
-      translate([.5, -.5, h/2])
+      translate([0, -.5, h/2])
         cylinder(r=32, h = h, center = true);
-      rotate([0, 0, 30]) translate([0, -20, h/2])
-        cube([46, 55, h], center = true);
-      rotate([0, 0, -30]) translate([0, -20, h/2])
-        cube([46, 55, h], center = true);
+      for (i=[1,-1])
+        rotate([0,0,i*30]) translate([0, -20, h/2])
+          cube([46, 55, h], center = true);
     }
 
     // cut for extrusion
@@ -156,17 +155,15 @@ module outer_brace_upper_bracket(h = outer_brace_upper_bracket_height,
 module outer_brace_bottom_bracket(h = 38) {
   difference() {
     union() {
-      translate([.5, -.5, 22.5])
+      translate([0, -.5, 22.5])
         cylinder(r=32, h = 45, center = true);
-      rotate([0,0,30]) translate([0,-20,19])
-        cube([46,55,38], center = true);
-      rotate([0,0,-30]) translate([0,-20,19])
-        cube([46,55,38], center = true);
+      for (i=[1,-1])
+        rotate([0,0,i*30]) translate([0, -20, 19])
+          cube([46, 55, 38], center = true);
     }
 
     // cut for extrusion
-    scale([extrusion_scale, extrusion_scale, 1]) // scale for better fit
-      translate([0, 0, base_thickness]) extrusion4040_no_hole(h=60);
+    translate([0, 0, base_thickness]) extrusion4040_no_hole(h=60);
 
     // cut to form outer face
     translate([0, 47, 29]) cube([100, 40, 60], center=true);
@@ -222,8 +219,7 @@ module upper_idler_adjuster_body(h = 60) {
       }
     }
     // cut for extrusion
-    scale([extrusion_scale, extrusion_scale, 1]) // scale for better fit
-      translate([0, 0, h-10]) extrusion4040_no_hole(h=h);
+    translate([0, 0, h-10]) extrusion4040_no_hole(h=h);
 
     // hollow
     difference() {
