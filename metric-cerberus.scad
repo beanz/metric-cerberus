@@ -17,7 +17,8 @@ module endstop(h = endstop_height, w = endstop_width, d = endstop_depth,
       translate([i*endstop_hole_width, 0, ehh])
         rotate([90,0,0]) cylinder(r = r, h = endstop_depth+1, center = true, $fn = 12);
   }
-  translate([eto, 0, h+eth/2]) cube([etw, etd, eth], center = true);
+  translate([eto, 0, h+eth/2]) color("Red")
+    cube([etw, etd, eth], center = true);
 }
 
 module mushroom(min_slot_width = 7.5, max_slot_width = 9,
@@ -77,9 +78,18 @@ module extrusion4040_no_hole(h=40, corner_radius = 4, width = 40,
   }
 }
 
-module fixing_bar(length = 320, height = 25, thickness = 2.5) {
-  rotate([0, 0, -30]) translate([-(thickness/2+20), -(length/2+7.5), height/2])
-    cube([thickness, length, height], center = true);
+module fixing_bar(length = 320, height = 25, thickness = 2.5,
+                  hole_radius = 4.2/2, hole_offset = 19) {
+  rotate([0, 0, -30])
+    translate([-(thickness/2+20.2), -(length/2+8.5), height/2])
+      difference() {
+        cube([thickness, length, height], center = true);
+        for (i=[1,-1]) {
+          translate([0,i*(length/2-hole_offset),0])
+            rotate([0,90,0])
+              cylinder(r=hole_radius, h=thickness+2, center = true, $fn = 24);
+        }
+      }
 }
 
 module slots_for_bars(h = 25.8, hole_diameter = 4.2) {
