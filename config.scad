@@ -1,5 +1,5 @@
 diameter=392;
-bar_length=.95*cos(30)*diameter;
+bar_length=.95*cos(30)*diameter; // 322
 bar_height=25;
 bar_scale = 1.02; // allow extra space to fit
 bar_thickness=2.5;
