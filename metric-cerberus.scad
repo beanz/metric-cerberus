@@ -5,6 +5,21 @@ module extrusion4040(h=1000) {
     linear_extrude(height=h) import("extrusion.dxf");
 }
 
+module endstop(h = endstop_height, w = endstop_width, d = endstop_depth,
+               r = endstop_hole_diameter/2, ehh = endstop_hole_height,
+               ehw = endstop_hole_width,
+               eth = endstop_trigger_height, etw = endstop_trigger_width,
+               etd = endstop_trigger_depth, eto = endstop_trigger_offset,
+               ) {
+  difference() {
+    translate([0, 0, h/2]) cube([w, d, h], center = true);
+    for (i=[1,-1])
+      translate([i*endstop_hole_width, 0, ehh])
+        rotate([90,0,0]) cylinder(r = r, h = endstop_depth+1, center = true, $fn = 12);
+  }
+  translate([eto, 0, h+eth/2]) cube([etw, etd, eth], center = true);
+}
+
 module mushroom(min_slot_width = 7.5, max_slot_width = 9,
                 slot_depth = 5, inner_width = 12,
                 mushroom_depth = 11.75, mushroom_depth_1 = 7,
@@ -124,10 +139,10 @@ module outer_brace_upper_bracket(h = outer_brace_upper_bracket_height,
     translate([0, 0, 5.3]) slots_for_bars();
 
     // end stop holes
-    translate([0,-15,3.7])
-      rotate([90,0,0]) cylinder(r=endstop_hole_diameter/2, h=20, $fn=12);
-    translate([endstop_hole_width,-15,3.7])
-      rotate([90,0,0]) cylinder(r=endstop_hole_diameter/2, h=20, $fn=12);
+    for (i=[1,-1]) {
+      translate([i*endstop_hole_width+endstop_trigger_offset, -15, 3.7])
+        rotate([90,0,0]) cylinder(r=endstop_hole_diameter/2, h=20, $fn=12);
+    }
 
     // other holes
     translate([-13,-15,10.5]) rotate([90,0,0]) cylinder(r=1.5, h=20, $fn=12);
