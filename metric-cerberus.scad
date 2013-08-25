@@ -281,15 +281,15 @@ module vert_carriage_for_623_dual_bearing_roller() {
 }
 
 module tripod_hole_jig(h = 15+(45-base_thickness),
-                       r = 4.5/2, w = 40) {
+                       r = 5.2/2, w = 40) {
   difference() {
     union() {
       difference() {
-        cube([w+4, h+r+base_thickness+2, 6], center = true);
+        cube([w+4, h+r+base_thickness+2, 8], center = true);
         translate([0, 1.5, base_thickness])
           cube([w*extrusion_scale, h+r+2+1, 6], center = true);
       }
-      cube([7.5, h+r+base_thickness+2, 6], center = true);
+      cube([7.5, h+r+base_thickness+2, 8], center = true);
     }
     translate([0, h/2-2, 0]) cylinder(r = r, h = 20, $fn = 18, center = true);
   }
