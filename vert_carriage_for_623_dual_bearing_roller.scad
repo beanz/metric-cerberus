@@ -1,6 +1,11 @@
+// EXPERIMENTAL: DO NOT PRINT UNLESS YOU ARE HAPPY TO WASTE PLASTIC
+// EXPERIMENTAL: DO NOT PRINT UNLESS YOU ARE HAPPY TO WASTE PLASTIC
+// EXPERIMENTAL: DO NOT PRINT UNLESS YOU ARE HAPPY TO WASTE PLASTIC
+// EXPERIMENTAL: DO NOT PRINT UNLESS YOU ARE HAPPY TO WASTE PLASTIC
+
 include <config.scad>;
 use <metric-cerberus.scad>;
-layer_height = .25;
+layer_height = .25; // to add a layer of bridging support to the bearing holes
 
 translate([0,19.5,0]) {
   //#translate([0,0,2]) vert_carriage_for_623_dual_bearing_roller();
