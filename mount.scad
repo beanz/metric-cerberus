@@ -1,5 +1,5 @@
-# mount to allow a bowden extruder http://www.thingiverse.com/thing:60531
-# to clear the rollers.
+// mount to allow a bowden extruder http://www.thingiverse.com/thing:60531
+// to clear the rollers.
 
 include <config.scad>;
 use <metric-cerberus.scad>;
