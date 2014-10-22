@@ -4,6 +4,7 @@ bar_height=25;
 bar_scale = 1.02; // allow extra space to fit
 bar_thickness=2.5;
 extrusion_length = 1000;
+extrusion_width = 40;
 extrusion_scale = 1.02; // allow extra space to fit
 
 // outer brace upper bracket configuration

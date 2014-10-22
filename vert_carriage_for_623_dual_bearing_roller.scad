@@ -132,9 +132,8 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
 //rotate([90,0,0])
 vert_carriage();
 depth = 25;
-for (t = [[0, -10, 10],
-          [-depth*.5, -10, 20],
-          [+depth*.5, -10, 20]]) {
+for (t = [[-depth*.4, -10, 10],
+          [+depth*.4, -10, 10]]) {
   translate(t) rotate([90,0,0])
     #cylinder(r=3/2, h = depth/2, center = true, $fn=10);
 }
