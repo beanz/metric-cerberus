@@ -127,8 +127,8 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
       cube([4, 8, 10], center = true); // TODO: Check M4 nut trap size
 
     // mounting holes for carriage bracket
-    for (t = [[-10, 0, 16],
-              [10, 0, 16]]) {
+    for (t = [[-10, 0, 15],
+              [10, 0, 15]]) {
       translate(t) rotate([90,0,0]) {
         cylinder(r=3/2, h =50, center = true, $fn=10);
         translate([0, 0, spacing])
