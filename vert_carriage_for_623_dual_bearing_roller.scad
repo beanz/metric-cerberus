@@ -19,7 +19,7 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
   width = extrusion_width+20;
   height = 50;
   depth = 25;
-  hole_offset = lextrusion_width/2+4;
+  hole_offset = extrusion_width/2+4;
   vert_hole_offset = 36;
   cut_width = extrusion_width+spacing;
   center_width = 5;
