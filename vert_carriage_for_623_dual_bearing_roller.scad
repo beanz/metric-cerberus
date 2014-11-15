@@ -139,7 +139,7 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
       translate(t) rotate([90,0,0]) {
         cylinder(r=3.1/2, h = 10, center = true, $fn=10);
         // m3 nut trap
-        translate([0, -5, 0]) #cube([6.8, 15, 3], center = true);
+        translate([0, -5, 0]) cube([6.8, 15, 3], center = true);
       }
     }
   }
@@ -150,4 +150,4 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
 vert_carriage();
 
 //testfit carriage bracket
-include <carriage-bracket.scad>;
+//include <carriage-bracket.scad>;
