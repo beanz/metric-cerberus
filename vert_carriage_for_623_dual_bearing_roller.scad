@@ -24,7 +24,7 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
   cut_width = extrusion_width+spacing;
   center_width = 5;
   adjustment_slit_width = 1.5;
-  end_stop_block_width = 20;
+  end_stop_block_width = 25;
   end_stop_screw_hole_diameter = 3.5; // 0 == no hole
 
   difference() {
@@ -125,15 +125,22 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
       rotate([0,90,0]) cylinder(r=4.2/2, h = 40, center = true, $fn=10);
     translate([-width/2+12.5, -7, 10])
       cube([4, 8, 10], center = true); // TODO: Check M4 nut trap size
+
+    // mounting holes for carriage bracket
+    for (t = [[-10, 0, 15],
+              [10, 0, 15]]) {
+      translate(t) rotate([90,0,0]) {
+        cylinder(r=3/2, h =50, center = true, $fn=10);
+        translate([0, 0, spacing])
+          cylinder(r=6/2, h=6, center = false, $fn=10);
+      }
+    }
   }
 }
 
 // rotate to print
 //rotate([90,0,0])
 vert_carriage();
-depth = 25;
-for (t = [[-depth*.4, -10, 10],
-          [+depth*.4, -10, 10]]) {
-  translate(t) rotate([90,0,0])
-    #cylinder(r=3/2, h = depth/2, center = true, $fn=10);
-}
+
+//testfit carriage bracket
+//include <carriage-bracket.scad>;

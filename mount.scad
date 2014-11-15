@@ -23,4 +23,6 @@ difference() {
       translate([+hole/3,i*8,0]) cylinder(r = 3, h = 20, center = true);
     }
   }
+  //clear the extruder
+  translate([-30,-25,-5]) cube([15,10,10]);
 }

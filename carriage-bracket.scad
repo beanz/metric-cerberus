@@ -1,42 +1,48 @@
-block_height=12;
-bar_height=1.5;
-bar_length=46;
-bar_width=6;
-arm_hole_height=4;
-allowance=1;
-hole_size=3.01; // use 2.5 for holes to tap, or leave at 3 for bolts+nuts
-difference() {
-  union() {
+//// rotate to print, translate to testfit
+//rotate([-90, 0, 0])
+translate([0, -12.5, 0]) carriage_bracket();
 
-    // main bar
-    translate([0, 0, block_height/2])
-      cube([bar_length, bar_width, block_height], center = true);
+mount_spacing = 46;
+mount_height = 8;
+m3_nut_rad = 7/2;
+m3_rad = 3.5/2;
 
-    // bar to fit recess on carriage
-    translate([1, 0, bar_height/2+block_height])
-      cube([42*allowance, 3*allowance, bar_height*allowance], center = true);
-  }
+module carriage_bracket()
+{
+  difference()
+  {
+    hull()
+    {
+      translate([0, -2, 18]) cube([mount_spacing-4, 4, 14], center = true);
+      translate([0, -mount_height, 20]) rotate([0, 90, 0])
+        cylinder(r = 8/2, h = mount_spacing, center = true, $fn=20);
+    }
 
-  // small hole - either drill or tap it
-  cylinder(r=hole_size/2, h = 30, $fn = 60, center = true);
-  for (i = [-1, 1]) {
+    // rod end mount holes
+    difference()
+    {
+      translate([0, -mount_height, 20]) rotate([0, 90, 0])
+        cylinder(r = 3/2, h = mount_spacing+1, center = true, $fn=20);
+      cube([8, 50, 50], center = true);
+    }
 
-    // holes of arm nuts
-    translate([i*15, 0, arm_hole_height])
-      cube([2.8, bar_width+1, 5.7], center = true);
+    // rod end nut traps
+    translate([(mount_spacing / 2) -7, -mount_height, 20])
+      rotate([0, 90, 0]) cylinder(r= 10/2, h = 4, center = true);
+    translate([(-mount_spacing / 2) + 7, -mount_height, 20])
+      rotate([0, 90, 0]) cylinder(r= 10/2, h = 4, center = true);
 
-    // holes for arm bolts
-    translate([i*18, 0, arm_hole_height])
-      rotate([0, 90, 0])
-      cylinder(r=hole_size/2, h = 15, $fn = 60, center = true);
+    // mount holes
+    for(i = [[0, -8, 20],
+             [-10, -5, 15],
+             [10, -5, 15]])
+    {
+      translate(i) rotate([90, 0, 0]) cylinder(r = m3_rad, h=50, center = true, $fn=10);
+      translate(i) rotate([90, 0, 0]) cylinder(r = m3_nut_rad, h=50, $fn=6);
+    }
 
-    // allow more movement near the rod end
-    translate([i*26, 0, 0]) rotate([0,i*-45,0])
-      cube(bar_width+2.01, center = true);
-  }
-  // allow space for head of bolt
-  translate([-bar_length/2, 0, block_height-2])
-    cube([6, bar_width+1, 4], center = true);
+  }  
 }
 
-
+// rod end mounts: 46 apart, 8 out, inline with middle hole
+// mount holes: 20 high, 16 high +/-10 out
