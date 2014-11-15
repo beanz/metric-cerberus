@@ -1,10 +1,11 @@
 //// rotate to print, translate to testfit
 //rotate([-90, 0, 0])
-translate([0, -12.5, 0]) carriage_bracket();
+translate([0, -12.5, 0])
+  carriage_bracket();
 
 mount_spacing = 46;
 mount_height = 8;
-m3_nut_rad = 7/2;
+m3_washer_rad = 7/2;
 m3_rad = 3.5/2;
 
 module carriage_bracket()
@@ -38,7 +39,7 @@ module carriage_bracket()
              [10, -5, 15]])
     {
       translate(i) rotate([90, 0, 0]) cylinder(r = m3_rad, h=50, center = true, $fn=10);
-      translate(i) rotate([90, 0, 0]) cylinder(r = m3_nut_rad, h=50, $fn=6);
+      translate(i) rotate([90, 0, 0]) cylinder(r = m3_washer_rad, h=50);
     }
 
   }  
