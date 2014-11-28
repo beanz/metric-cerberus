@@ -19,6 +19,13 @@ module carriage_bracket()
         cylinder(r = 8/2, h = mount_spacing, center = true, $fn=20);
     }
 
+    // cut for clearance of the traxxas
+    for (i = [-1, 1]) {
+      translate([i*mount_spacing/2, -mount_height-(m3_rad+0.5), 20-20]) {
+        rotate([0,0,-135]) cube(40);
+      }
+    }
+
     // rod end mount holes
     difference()
     {
