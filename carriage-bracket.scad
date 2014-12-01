@@ -31,7 +31,7 @@ module carriage_bracket()
     {
       translate([0, -mount_height, 20]) rotate([0, 90, 0])
         cylinder(r = 3/2, h = mount_spacing+1, center = true, $fn=20);
-      cube([8, 50, 50], center = true);
+      cube([2*(m3_washer_rad+4), 50, 50], center = true);
     }
 
     // rod end nut traps
@@ -46,10 +46,14 @@ module carriage_bracket()
              [10, -5, 15]])
     {
       translate(i) rotate([90, 0, 0]) cylinder(r = m3_rad, h=50, center = true, $fn=10);
-      translate(i) rotate([90, 0, 0]) cylinder(r = m3_washer_rad, h=50);
+      if (i[0] == 0) {
+        // middle hole has a nut - make room to grab it
+        translate(i) rotate([90, 0, 0]) cylinder(r = m3_washer_rad+3, h=50);
+      } else {
+        translate(i) rotate([90, 0, 0]) cylinder(r = m3_washer_rad, h=50);
+      }
     }
-
-  }  
+  }
 }
 
 // rod end mounts: 46 apart, 8 out, inline with middle hole
