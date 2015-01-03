@@ -138,8 +138,10 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
               [10, -8, 15]]) {
       translate(t) rotate([90,0,0]) {
         cylinder(r=3.1/2, h = 10, center = true, $fn=10);
-        // m3 nut trap
-        translate([0, -5, 0]) cube([6.8, 15, 3], center = true);
+
+        // m3 nut trap - trap needs translation of -(15-6.8)/2 = -4.1
+        // so use -3.5 just to be safe
+        translate([0, -3.5, 0]) cube([6.8, 15, 3], center = true);
       }
     }
   }
