@@ -14,12 +14,12 @@ if (0) {
   translate([0,19.5,2]) #vert_carriage_for_623_dual_bearing_roller();
 }
 
-module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
+module vert_carriage(extrusion_width = 40, spacing = 2.5, curvature = 8)
 {
   width = extrusion_width+20;
   height = 50;
   depth = 25;
-  hole_offset = extrusion_width/2+4;
+  hole_offset = extrusion_width/2+5;
   vert_hole_offset = 36;
   cut_width = extrusion_width+spacing;
   center_width = 4.5;
@@ -127,11 +127,11 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
     }
 
     // adjustment slit
-    translate([-width/2+11, 0, 5])
+    translate([-width/2+9, 0, 5])
       cube([10, depth*2, adjustment_slit_width], center = true);
-    translate([-width/2+2.5, 0, 15])
+    translate([-width/2+0.5, 0, 15])
       cube([10, depth*2, adjustment_slit_width], center = true);
-    translate([-width/2+6.75, 0, 10])
+    translate([-width/2+4.75, 0, 10])
       cube([adjustment_slit_width, depth*2, 10], center = true);
 
     // adjustment screw hole
