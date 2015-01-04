@@ -71,7 +71,7 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
 
 
     // clear middle
-    translate([0,14.5,0]) cube([20, 20, height+2], center = true);
+    translate([0, 16, 0]) cube([20, 20, height+2], center = true);
 
     // clear middle bottom
     translate([0, 18, -14])
