@@ -22,7 +22,7 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
   hole_offset = extrusion_width/2+4;
   vert_hole_offset = 36;
   cut_width = extrusion_width+spacing;
-  center_width = 5;
+  center_width = 4.5;
   adjustment_slit_width = 1.5;
   end_stop_block_width = 25;
   end_stop_screw_hole_diameter = 0; // 3.5mm (m4 tap) or 0 (no hole)
