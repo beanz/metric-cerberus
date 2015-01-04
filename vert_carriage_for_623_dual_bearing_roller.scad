@@ -5,13 +5,13 @@
 
 include <config.scad>;
 use <metric-cerberus.scad>;
+to_print = 1;
 layer_height = .25; // to add a layer of bridging support to the bearing holes
+roller_diameter = 13.3; // on flat part
+roller_width = 11;
 
 if (0) {
-  translate([0,19.5,0]) {
-    #translate([0,0,2]) vert_carriage_for_623_dual_bearing_roller();
-    %translate([0,0,-40]) extrusion4040(h=80);
-  }
+  translate([0,19.5,2]) #vert_carriage_for_623_dual_bearing_roller();
 }
 
 module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
@@ -49,13 +49,23 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
           cube([end_stop_block_width, 17, 26], center = true);
       }
 
-      // bearing holes
+      // bearing supports
       for (t = [[-1*hole_offset, 0, 0],
                 [hole_offset, vert_hole_offset*.5, 0],
                 [hole_offset, vert_hole_offset*-.5, 0]]) {
         translate([0, 1, 0])
         rotate([90, 0, 0])
           translate(t) cylinder(r = 5, h = depth, center = true);
+
+        // roller
+        translate([0, 1.5+(roller_width+depth)/2, 0]) {
+          rotate([90, 0, 0]) {
+            translate(t) {
+              %cylinder(r = roller_diameter/2,
+                h = roller_width, center = true);
+            }
+          }
+        }
       }
     }
 
@@ -148,8 +158,15 @@ module vert_carriage(extrusion_width = 40, spacing = 1.5, curvature = 8)
 }
 
 // rotate to print
-//rotate([90,0,0])
-vert_carriage();
+rotate([to_print ? 90 : 0, 0, 0]) {
 
-//testfit carriage bracket
-//include <carriage-bracket.scad>;
+  // the part
+  vert_carriage();
+
+  // extrusion
+  %translate([0,19.5,-40]) extrusion4040(h=80);
+
+  //testfit carriage bracket
+  //include <carriage-bracket.scad>;
+}
+
