@@ -6,6 +6,8 @@ translate([0, -12.5, 0])
 mount_spacing = 46;
 mount_height = 8;
 m3_washer_rad = 7/2;
+m3_washer_height = 0.6;
+m3_nut_height = 4; // lock nut
 m3_rad = 3.5/2;
 
 module carriage_bracket()
@@ -35,10 +37,11 @@ module carriage_bracket()
     }
 
     // rod end nut traps
-    translate([(mount_spacing / 2) -7, -mount_height, 20])
-      rotate([0, 90, 0]) cylinder(r= 10/2, h = 4, center = true);
-    translate([(-mount_spacing / 2) + 7, -mount_height, 20])
-      rotate([0, 90, 0]) cylinder(r= 10/2, h = 4, center = true);
+    for (i = [-1, 1]) {
+      translate([i*(mount_spacing/2-8), -mount_height, 20])
+        rotate([0, 90, 0])
+          cylinder(r= 10/2, h=m3_nut_height+m3_washer_height, center = true);
+    }
 
     // mount holes
     for(i = [[0, -8, 20],
