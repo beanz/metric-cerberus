@@ -12,6 +12,8 @@ module side() {
       translate([0,-0.5,(width-slot_width)/2]) {
         cube([height/2, thickness+0.5, slot_width]);
       }
+      translate([hole_offset, 0.3, width/2]) rotate([-90,0,0])
+        cylinder(r = 5/2, h = thickness, $fn = 12);
     }
     translate([hole_offset, -thickness, width/2]) rotate([-90,0,0])
       cylinder(r = 3.2/2, h = thickness*3, $fn = 12);
@@ -45,7 +47,8 @@ difference() {
   }
 }
 
-%translate([hole_offset, thickness, width/2]) rotate([-90,0,0]) washer(M3_washer) v_ball_bearing(BB623VV) washer(M3_washer);
+%translate([hole_offset, thickness+gap/2-v_ball_bearing_v_height(BB623VV)/2,
+            width/2]) rotate([-90,0,0]) v_ball_bearing(BB623VV);
 
 /* the following definitions are loosely derived from
  * nophead's awesome Mendel90 scad.
@@ -62,6 +65,7 @@ BB623VV = [3, 12, 4, 1.2, 2.7, "623VV"];
 
 function v_ball_bearing_v_depth(type) = type[3];
 function v_ball_bearing_v_width(type) = type[4];
+function v_ball_bearing_v_height(type) = type[2];
 
 module v_ball_bearing(type) {
     vitamin(str("BB",type[5],": V groove ball bearing ",type[5]," ",type[0], "mm x ", type[1], "mm x ", type[2], "mm, v depth ", type[3], "mm, w width ", type[4]), "mm");
@@ -82,28 +86,6 @@ module v_ball_bearing(type) {
     }
     if($children)
         translate([0, 0, h])
-            child();
-}
-
-M3_washer  =      [3,   7, 0.5, false,  5.8];
-function washer_diameter(type)  = type[1];
-function washer_thickness(type) = type[2];
-function washer_soft(type)      = type[3];
-function washer_color(type) = washer_soft(type) ? soft_washer_color : hard_washer_color;
-module washer(type) {
-    hole = type[0];
-    thickness = washer_thickness(type);
-    diameter  = washer_diameter(type);
-    if(washer_soft(type))
-        vitamin(str("WR", hole * 10, diameter, thickness * 10, ": Rubber washer M", hole, " x ", diameter, "mm x ", thickness, "mm"));
-    else
-        vitamin(str("WA", hole * 10, diameter, thickness * 10, ": Washer M",        hole, " x ", diameter, "mm x ", thickness, "mm"));
-    color(washer_color(type)) render() difference() {
-        cylinder(r = diameter / 2, h = thickness - 0.05);
-        cylinder(r = hole / 2, h = 2 * thickness + 1, center = true);
-    }
-    if($children)
-        translate([0, 0, thickness])
             child();
 }
 
