@@ -1,6 +1,6 @@
 thickness = 8;
 hole_radius = 50/2;
-probe_radius = 12/2;
+probe_radius = 13/2;
 delta_effector_offset = 33.5;
 mount_spacing = 46;
 mount_width = 5.5;
