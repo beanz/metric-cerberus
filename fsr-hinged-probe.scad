@@ -23,8 +23,10 @@ groove_mount_small_h = 4.64;
 
 groove_mount_h = groove_mount_big_h + groove_mount_small_h;
 hd = depth*.9;
-fsr_r = 20/2;
-fsr_sense_r = 8/2;
+
+// interlink 402 - active_r = 6.35, r=9.14
+fsr_r = 9.2;
+fsr_sense_r = 5;
 
 hinge();
 mount();
