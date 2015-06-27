@@ -23,7 +23,8 @@ groove_mount_small_h = 4.64;
 
 groove_mount_h = groove_mount_big_h + groove_mount_small_h;
 hd = depth*.9;
-fsr_sense_r = 12.5/2;
+fsr_r = 20/2;
+fsr_sense_r = 8/2;
 
 hinge();
 mount();
@@ -43,7 +44,7 @@ module mount() {
                                  center = true, $fn = 32);
                     }
                     translate([0, 0, height/2])
-                        cylinder(r = fsr_sense_r+clearance/2, h = height,
+                        cylinder(r = fsr_r, h = height,
                                  center = true, $fn = 32);
                 }
             }
@@ -94,9 +95,9 @@ module mount() {
             // fsr pad
             translate([-clearance, 0, -0.01+0.5/2]) {
                 difference() {
-                    cylinder(r = fsr_sense_r, h = 0.5,
+                    cylinder(r = fsr_r, h = 0.5,
                         center = true);
-                    cylinder(r = fsr_sense_r-clearance/2, h = 0.5,
+                    cylinder(r = fsr_sense_r, h = 0.5,
                         center = true);
                 }
             }
