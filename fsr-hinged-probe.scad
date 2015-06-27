@@ -48,15 +48,21 @@ module mount() {
                 }
             }
             // hinge
-            hull() {
-                for (i = [0,1]) {
-                    translate([i*(offset_d-depth), 0, hd/2]) {
-                        rotate([90,0,0]) {
-                            difference() {
-                                cylinder(r = hd/2, h = hinge_width*0.95, center = true, $fn = 24);
-                                cylinder(r = m3_r, h = hinge_width*2, center = true, $fn=12);
+            difference() {
+                hull() {
+                    for (i = [0,1]) {
+                        translate([i*(offset_d-depth), 0, hd/2]) {
+                            rotate([90,0,0]) {
+                                cylinder(r = hd/2, h = hinge_width*0.95,
+                                         center = true, $fn = 24);
                             }
                         }
+                    }
+                }
+                translate([offset_d-depth, 0, height/2]) {
+                    rotate([90,0,0]) {
+                        cylinder(r = m3_r, h = hinge_width*2,
+                                 center = true, $fn = 12);
                     }
                 }
             }
