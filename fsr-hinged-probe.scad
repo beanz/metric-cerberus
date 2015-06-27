@@ -43,8 +43,8 @@ module mount() {
                         cylinder(r = m3_r+clearance, h = height,
                                  center = true, $fn = 32);
                     }
-                    translate([0, 0, height/2])
-                        cylinder(r = fsr_r, h = height,
+                    translate([-clearance, 0, height/2])
+                        cylinder(r = fsr_sense_r, h = height,
                                  center = true, $fn = 32);
                 }
             }
@@ -103,9 +103,9 @@ module mount() {
             translate([-clearance, 0, -0.01+0.5/2]) {
                 difference() {
                     cylinder(r = fsr_r, h = 0.5,
-                        center = true);
+                        center = true, $fn = 32);
                     cylinder(r = fsr_sense_r, h = 0.5,
-                        center = true);
+                        center = true, $fn = 32);
                 }
             }
         }
