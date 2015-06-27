@@ -87,10 +87,17 @@ module mount() {
 
         translate([-offset_d, 0, 0]) {
             // fsr pad mount holes
-            for (i = [-1,1]) {
-                translate([0, offset_w*i, 0])
-                cylinder(r = m3_r, h = height*5,
-                    center = true, $fn = 12);
+            translate([0, 0, height/2]) {
+                for (i = [-1,1]) {
+                    hull() {
+                        for (j = [-1, 1]) {
+                            translate([j, offset_w*i, 0]) {
+                                cylinder(r = m3_r, h = height*3,
+                                    center = true, $fn = 12);
+                            }
+                        }
+                    }
+                }
             }
             // fsr pad
             translate([-clearance, 0, -0.01+0.5/2]) {
