@@ -14,7 +14,14 @@ height = m3_r+clearance*2;
 offset_d = cos(30)*hole_r;
 thickness = 3;
 hinge_width = 12;
-mh = 9.5;
+mount_width = 24;
+
+groove_mount_big_r = 16/2;
+groove_mount_big_h = 4.76;
+groove_mount_small_r = 12/2;
+groove_mount_small_h = 4.64;
+
+groove_mount_h = groove_mount_big_h + groove_mount_small_h;
 hd = depth*.9;
 fsr_sense_r = 12.5/2;
 
@@ -54,14 +61,22 @@ module mount() {
                 }
             }
             // hotend holder
-            translate([-depth/2,0,mh/2]) {
-                cube([offset_d*2-depth*2,25,mh], center = true);
+            translate([-depth/2,0,groove_mount_h/2]) {
+                cube([offset_d*2-depth*2.02, mount_width,groove_mount_h],
+                     center = true);
             }
         }
         // inner slot
-        translate([0,0,-0.01]) mount_slot(r = 12/2, h = mh*2);
+        translate([0,0,-0.01]) {
+            mount_slot(r = groove_mount_small_r,
+                       h = groove_mount_small_h+0.02);
+        }
+
         // outer slot
-        translate([0,0,4.5]) mount_slot(r = 16/2, h = mh*2);
+        translate([0,0,groove_mount_small_h]) {
+            mount_slot(r = groove_mount_big_r,
+                       h = groove_mount_big_h+0.01);
+        }
 
         translate([-offset_d, 0, 0]) {
             // fsr pad mount holes
@@ -90,11 +105,11 @@ module mount() {
     }
 }
 
-module pushfit_plate() {
-    translate([0,0,mh+0.5]) {
+module pushfit_plate(h=3) {
+    translate([0,0,groove_mount_h+0.5]) {
         difference() {
             translate([-2,0,3/2]) {
-                cube([18+m3_r+clearance*1.5,25,3], center = true);
+                cube([18+m3_r+clearance*1.5,mount_width,h], center = true);
             }
             for (i = [-1, 1]) {
                 translate([-2+9*i, -9*i, 0]) {
@@ -102,7 +117,7 @@ module pushfit_plate() {
                         center = true, $fn = 12);
                 }
             }
-            cylinder(r = 4.6/2, h = height*5, center = true, $fn = 12);
+            cylinder(r = 4.7/2, h = height*5, center = true, $fn = 12);
         }
     }
 }
